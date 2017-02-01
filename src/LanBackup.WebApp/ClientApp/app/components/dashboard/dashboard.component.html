@@ -1,0 +1,77 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span>
+      LanBackup Agents activity board
+    </span>
+    <div class="pull-right mypointerlink">
+      <a (click)="doRefresh()" class="nounderline">
+        <i class="fa fa-refresh fa-fw" [ngClass]="{ 'fa-spin': isloading }" aria-hidden="true"></i>  Refresh
+      </a>
+    </div>
+  </div>
+
+
+  <div class="panel-body">
+
+
+    <div>
+      <div class="tabledesc">
+        Here you can monitor registered backup agents.
+      </div>
+    </div>
+
+
+
+    <div class="table-responsive tableminim well">
+      <table class="table table-hover table-fixed table-condensed table-striped anyLoadingTable">
+        <thead>
+          <tr>
+            <th>Computer IP</th>
+            <th>Config ID</th>
+            <th width="1%"></th>
+            <th width="30%">Status</th>
+            <th>Progress</th>
+            <th width="15%">Last Report</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let agent of list | paginate: { id: 'pagedList', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalPages }">
+            <td>{{agent.ip}}</td>
+            <td>{{agent.configurationId ? agent.configurationId : '---'}}</td>
+            <td>{{agent.statusType}}</td>
+            <td>{{agent.statusDescription}}</td>
+            <td>
+              <!--agent.statusPercent-->
+              <progressbar [animate]="true" [value]="agent.statusPercent" [max]="100" [type]="type"><b>{{agent.statusPercent}}%</b></progressbar>
+            </td>
+            <td>{{agent.statusDateTime | date: 'hh:mm:ss dd/MM/yyyy'}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <div class="spinnercontainer row" [ngClass]="{ 'hidden': !isloading }">
+        <div class="myspinnerback">
+          <div class="myspinner">
+            <i class="fa fa-refresh fa-3x fa-fw fa-spin text-primary" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+    <!--pagination-->
+    <div class="panel-footer table-footer">
+      <div class="has-text-centered">
+        <pagination-controls (pageChange)="getPage($event)" id="pagedList" previousLabel="&laquo;" nextLabel="&raquo;"></pagination-controls>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

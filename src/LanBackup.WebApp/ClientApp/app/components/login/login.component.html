@@ -1,0 +1,89 @@
+<div class="panel panel-default">
+
+
+
+  <div id="loginPanel">
+    <div class="mytitle">
+      <h3>Have an Account?</h3>
+    </div>
+    <div>
+      <div class="well">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#login" data-toggle="tab">Login</a></li>
+          <li><a href="#create" data-toggle="tab">Create Account</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active in" id="login">
+            
+            <!--LOGIN-->
+
+
+            <!--<form class="form-horizontal">-->
+            <fieldset>
+              <div class="control-group">
+                <!-- Username -->
+                <label class="control-label" for="username">Email</label>
+                <div class="controls">
+                  <input type="text" id="username" name="username" placeholder="email address" class="input-xlarge validate" [(ngModel)]="user.email">
+                </div>
+              </div>
+
+              <div class="control-group">
+                <!-- Password-->
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                  <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge validate" [(ngModel)]="user.password">
+                </div>
+              </div>
+              <h1></h1>
+              <span>{{errorMsg}}</span>
+              <h1></h1>
+              <div class="control-group">
+                <!-- Button -->
+                <button class="btn btn-success" (click)="doLogin()">Login</button>
+              </div>
+            </fieldset>
+            <!--</form>-->
+          </div>
+
+
+          <!--REGISTER-->
+
+          <div class="tab-pane fade" id="create">
+            <!--<form class="form-horizontal">-->
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label" for="username">Email</label>
+              <div class="controls">
+                <input type="text" id="username" name="username" placeholder="Email address" class="input-xlarge" [(ngModel)]="user.email">
+              </div>
+            </div>
+            <div class="control-group">
+              <!-- Password-->
+              <label class="control-label" for="password">Password</label>
+              <div class="controls">
+                <input type="password" id="password" name="password" placeholder="Password" class="input-xlarge" [(ngModel)]="user.password">
+              </div>
+            </div>
+            <div class="control-group">
+              <!-- RePassword-->
+              <label class="control-label" for="repassword">Repeat Password</label>
+              <div class="controls">
+                <input type="password" id="repassword" name="repassword" placeholder="Repeat Password" class="input-xlarge" [(ngModel)]="repassword">
+              </div>
+            </div>
+            <h1></h1>
+            <span>{{errorMsg}}</span>
+            <h1></h1>
+            <div class="control-group">
+              <!--create button-->
+              <button class="btn btn-primary" (click)="doRegister()">Create Account</button>
+            </div>
+            <!--</form>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

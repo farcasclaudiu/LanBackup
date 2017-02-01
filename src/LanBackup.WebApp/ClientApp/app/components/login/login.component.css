@@ -1,0 +1,47 @@
+﻿body {
+  padding-top: 50px;
+}
+.pagetemplate {
+  padding: 50px 0px 15px;
+  text-align: left;
+}
+.panel-default {
+  margin-top:20px;
+}
+
+
+
+
+
+.newbackup{
+  float: right;
+  clear: both;
+}
+
+.table-footer{
+  padding: 0px;
+}
+
+.pagination{
+  margin: 5px 0px 0px;
+}
+
+.tabledesc{
+  margin: 10px 10px 25PX;
+}
+
+
+
+.mytitle{
+  padding-left: 20px;
+}
+
+#myTabContent {
+  margin-top: 20px;
+}
+
+
+.form-horizontal .form-group{
+  margin-left: 0px;
+  margin-right: 0px;
+}

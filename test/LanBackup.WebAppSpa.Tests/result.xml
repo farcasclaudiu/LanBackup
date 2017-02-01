@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<assemblies>
+  <assembly name="LanBackup.WebApp.Tests.dll" environment="64-bit .NET (unknown version) [collection-per-class, parallel (8 threads)]" test-framework="xUnit.net 2.2.0.3444" run-date="2017-01-10" run-time="21:35:28" total="1" passed="1" failed="0" skipped="0" time="3.650" errors="0">
+    <errors />
+    <collection total="1" passed="1" failed="0" skipped="0" name="Test collection for LanBackup.WebApp.Tests.IntegrationTests.ApiLogsControllerTests" time="0.580">
+      <test name="LanBackup.WebApp.Tests.IntegrationTests.ApiLogsControllerTests.GetAllLogRecords" type="LanBackup.WebApp.Tests.IntegrationTests.ApiLogsControllerTests" method="GetAllLogRecords" time="0.5799872" result="Pass">
+        <output><![CDATA[jsonStr: [{"id":1,"rowVersion":"AAAAAAABQFE=","clientIP":"169.254.80.80","configurationID":null,"description":"Time on the agent is 10/01/2017 04:58:55","error":null,"status":"OK"},{"id":2,"rowVersion":"AAAAAAABQFI=","clientIP":"169.254.80.80","configurationID":null,"description":"Time on the agent is 10/01/2017 04:59:10","error":null,"status":"OK"},{"id":3,"rowVersion":"AAAAAAABQFM=","clientIP":"169.254.80.80","configurationID":null,"description":"Time on the agent is 10/01/2017 04:59:25","error":null,"status":"OK"},{"id":4,"rowVersion":"AAAAAAABQFQ=","clientIP":"169.254.80.80","configurationID":null,"description":"Time on the agent is 10/01/2017 04:59:40","error":null,"status":"OK"},{"id":5,"rowVersion":"AAAAAAABQFU=","clientIP":"169.254.80.80","configurationID":null,"description":"Time on the agent is 10/01/2017 04:59:55","error":null,"status":"OK"},{"id":6,"rowVersion":"AAAAAAABQFY=","clientIP":"169.254.80.80","configurationID":null,"description":"Time on the agent is 10/01/2017 05:00:10","error":null,"status":"OK"},{"id":7,"rowVersion":"AAAAAAABQFc=","clientIP":"169.254.80.80","configurationID":null,"description":"Time on the agent is 10/01/2017 05:01:49","error":null,"status":"OK"},{"id":8,"rowVersion":"AAAAAAABQFg=","clientIP":"169.254.80.80","configurationID":null,"description":"Time on the agent is 10/01/2017 05:02:04","error":null,"status":"OK"}]
+]]></output>
+      </test>
+    </collection>
+  </assembly>
+</assemblies>

@@ -1,0 +1,27 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mynavbar" aria-expanded="false"
+              aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand btn-primary" [routerLink]="['/']">LAN Backup <span class="badge">{{agentsCount}}</span></a>
+    </div>
+    <div id="mynavbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li [routerLinkActive]="['link-active']"><a [routerLink]="['/backups']"><i class="fa fa-wpforms" aria-hidden="true"></i> Backups</a></li>
+        <li [routerLinkActive]="['link-active']"><a [routerLink]="['/logs']"><i class="fa fa-list-alt" aria-hidden="true"></i> Logs</a></li>
+        <li *ngIf="isLoggedIn()" [routerLinkActive]="['link-active']"><a [routerLink]="['/users']"><i class="fa fa-users" aria-hidden="true"></i> Manage users</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="isLoggedIn()" [routerLinkActive]="['link-active']"><a [routerLink]="['/profile']"><i class="fa fa-user" aria-hidden="true"></i> Profile</a></li>
+        <li *ngIf="isLoggedIn()" [routerLinkActive]="['link-active']" style="cursor: pointer;"><a (click)="logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i> Log Out</a></li>
+        <li *ngIf="!isLoggedIn()" [routerLinkActive]="['link-active']"><a [routerLink]="['/login']"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+      </ul>
+    </div>
+    <!--/.nav-collapse -->
+  </div>
+</nav>

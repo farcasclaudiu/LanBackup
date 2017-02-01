@@ -1,0 +1,73 @@
+body {
+  padding-top: 50px;
+}
+
+
+/*override pagination styles*/
+.pagination {
+  margin: 10px 5px 5px 10px;
+}
+
+  .pagination > li {
+    cursor: pointer;
+  }
+
+
+
+/*switch adjust*/
+.switchAdjust {
+  margin-top: 2px;
+}
+
+
+.mypointerlink {
+  cursor: pointer;
+}
+
+.nounderline:hover {
+  text-decoration: none;
+}
+
+
+.progress {
+  margin: 0px;
+  padding: 0px;
+}
+
+.tabledesc {
+  padding-top: 5px;
+  padding-bottom: 15px;
+}
+
+
+
+
+.navbar-default {
+  z-index: 1030;
+}
+
+
+.anyLoadingTable {
+  float: left
+}
+.spinnercontainer{
+  float: none;
+  background-color: rgba(0, 0, 0, 0.10);
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  position: relative;
+}
+.myspinnerback {
+  height:100%;
+  min-height:100%; 
+  width:100%; 
+  float:left;
+  position:absolute; 
+}
+
+.myspinner {
+  top:45%; 
+  position:relative;
+}

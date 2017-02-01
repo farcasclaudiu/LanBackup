@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+  <?define LanBackupAgent_TargetDir=$(var.LanBackupAgent.TargetDir)?>
+	<Product Id="8E9FF570-7E75-4183-9D3D-73539B95720F" Name="LanBackupAgent" Language="1033" Version="1.0.0.0" Manufacturer="HouseOfSoftware Ltd" UpgradeCode="9b25ad1b-c6bb-446b-af12-80bfa235cb8e">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <Icon Id="app_icon.ico" SourceFile="$(var.ProjectDir)app_icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="app_icon.ico" />
+    
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\license.rtf" />
+
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <UIRef Id="WixUI_InstallDir" />
+
+
+    <!-- Tell WiX to install the files -->
+		<Feature Id="ProductFeature" Title="LanBackupAgent" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="ProductComponents_x86" />
+      <ComponentGroupRef Id="ProductComponents_x64" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="LanBackupAgent" >
+          <Directory Id='DIR_x86' Name='x86'>
+          </Directory>
+          <Directory Id='DIR_x64' Name='x64'>
+          </Directory>
+        </Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+  
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="LanBackupAgent.exe" Guid="0eec85a2-c19c-40af-a2df-f554d6f90b99">
+        <CreateFolder>
+          <util:PermissionEx User="NT AUTHORITY\NETWORKSERVICE" GenericAll="yes"/>
+        </CreateFolder>
+			  <File Id="LanBackupAgent.exe" Name="LanBackupAgent.exe" Source="$(var.LanBackupAgent_TargetDir)LanBackupAgent.exe" />
+        <!-- Remove all files from the INSTALLFOLDER on uninstall -->
+        <RemoveFile Id="ALLFILES" Name="*.*" On="both" />
+        <!-- Tell WiX to install the Service -->
+        <ServiceInstall Id="ServiceInstaller" Type="ownProcess" Name="LanBackupAgent" DisplayName="LanBackup Agent" Description="LanBackup Agent Service." Start="auto" Account="NT AUTHORITY\NETWORKSERVICE" ErrorControl="normal" />
+        <!--".\NETWORK_SERVICE"-->
+        <!-- Tell WiX to start the Service -->
+        <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall" Name="LanBackupAgent" Wait="yes" />
+			</Component>
+			<Component Id="LanBackupAgent.exe.config" Guid="e2a787d4-f512-4644-a70e-65458e2956c0">
+			  <File Id="LanBackupAgent.exe.config" Name="LanBackupAgent.exe.config" Source="$(var.LanBackupAgent_TargetDir)LanBackupAgent.exe.config" />
+			</Component>
+			<Component Id="ColoredConsole.dll" Guid="4b80882d-72f5-4d06-b5a6-2af6adeb0be6">
+			  <File Id="ColoredConsole.dll" Name="ColoredConsole.dll" Source="$(var.LanBackupAgent_TargetDir)ColoredConsole.dll" />
+			</Component>
+			<Component Id="Dapper.dll" Guid="1637593f-7990-4f62-86ab-6f515967ffdb">
+			  <File Id="Dapper.dll" Name="Dapper.dll" Source="$(var.LanBackupAgent_TargetDir)Dapper.dll" />
+			</Component>
+			<Component Id="Hangfire.Core.dll" Guid="304287bd-78d8-4be2-83d1-fd3532e8ad18">
+			  <File Id="Hangfire.Core.dll" Name="Hangfire.Core.dll" Source="$(var.LanBackupAgent_TargetDir)Hangfire.Core.dll" />
+			</Component>
+			<Component Id="Hangfire.SQLite.dll" Guid="c0c58d09-763a-4f47-9260-e68cafa8eda9">
+			  <File Id="Hangfire.SQLite.dll" Name="Hangfire.SQLite.dll" Source="$(var.LanBackupAgent_TargetDir)Hangfire.SQLite.dll" />
+			</Component>
+			<Component Id="Microsoft.AspNet.SignalR.Client.dll" Guid="0bcfea4c-c8e6-46d8-a66b-74dba6d6f907">
+			  <File Id="Microsoft.AspNet.SignalR.Client.dll" Name="Microsoft.AspNet.SignalR.Client.dll" Source="$(var.LanBackupAgent_TargetDir)Microsoft.AspNet.SignalR.Client.dll" />
+			</Component>
+			<Component Id="Microsoft.Rest.ClientRuntime.dll" Guid="d2d585e8-b455-4f15-a8c3-45eeb5cc142a">
+			  <File Id="Microsoft.Rest.ClientRuntime.dll" Name="Microsoft.Rest.ClientRuntime.dll" Source="$(var.LanBackupAgent_TargetDir)Microsoft.Rest.ClientRuntime.dll" />
+			</Component>
+			<Component Id="Newtonsoft.Json.dll" Guid="c94f0c8b-0cac-4599-80d3-f25d7d6a8b50">
+			  <File Id="Newtonsoft.Json.dll" Name="Newtonsoft.Json.dll" Source="$(var.LanBackupAgent_TargetDir)Newtonsoft.Json.dll" />
+			</Component>
+			<Component Id="NLog.dll" Guid="0b6e4de0-71c0-4458-838c-aed7cedddbe4">
+			  <File Id="NLog.dll" Name="NLog.dll" Source="$(var.LanBackupAgent_TargetDir)NLog.dll" />
+			</Component>
+			<Component Id="Owin.dll" Guid="ac45e6f3-39ee-40b0-8f93-b5f732e6f057">
+			  <File Id="Owin.dll" Name="Owin.dll" Source="$(var.LanBackupAgent_TargetDir)Owin.dll" />
+			</Component>
+			<Component Id="SimpleImpersonation.dll" Guid="ecba55d2-6522-4b7a-bf4c-a4f22fd870ab">
+			  <File Id="SimpleImpersonation.dll" Name="SimpleImpersonation.dll" Source="$(var.LanBackupAgent_TargetDir)SimpleImpersonation.dll" />
+			</Component>
+			<Component Id="SimpleInjector.dll" Guid="d99b6202-b2c6-44de-832c-e1010ed48f9f">
+			  <File Id="SimpleInjector.dll" Name="SimpleInjector.dll" Source="$(var.LanBackupAgent_TargetDir)SimpleInjector.dll" />
+			</Component>
+			<Component Id="System.Data.SQLite.dll" Guid="d473f3ad-f3ce-43c8-b3f1-0730e7c5d3cd">
+			  <File Id="System.Data.SQLite.dll" Name="System.Data.SQLite.dll" Source="$(var.LanBackupAgent_TargetDir)System.Data.SQLite.dll" />
+			</Component>
+
+      
+        
+      
+      
+      
+			<Component Id="Topshelf.dll" Guid="32d1544f-5af0-4084-a309-2b60e71f6acf">
+			  <File Id="Topshelf.dll" Name="Topshelf.dll" Source="$(var.LanBackupAgent_TargetDir)Topshelf.dll" />
+			</Component>
+			<Component Id="Topshelf.NLog.dll" Guid="c83e3495-1536-4446-a10e-5e6362ab34ae">
+			  <File Id="Topshelf.NLog.dll" Name="Topshelf.NLog.dll" Source="$(var.LanBackupAgent_TargetDir)Topshelf.NLog.dll" />
+			</Component>
+      
+			<Component Id="nlog.config" Guid="a8a04d58-835b-4175-8f4c-d51232e67333">
+			  <File Id="nlog.config" Name="nlog.config" Source="$(var.LanBackupAgent_TargetDir)nlog.config" />
+			</Component>
+      
+      
+		</ComponentGroup>
+
+	</Fragment>
+
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents_x86" Directory="DIR_x86">
+      <Component Id="x86_SQLite.Interop.dll" Guid="1413245B-EE93-4BC9-9A12-B9B296DC0453">
+        <CreateFolder />
+        <File Id="x86_SQLite.Interop.dll" Name="SQLite.Interop.dll" Source="$(var.LanBackupAgent_TargetDir)x86\SQLite.Interop.dll" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents_x64" Directory="DIR_x64">
+      <Component Id="x64_SQLite.Interop.dll" Guid="C9834F83-C60A-4972-B992-D75A67CDB3B7">
+        <CreateFolder />
+        <File Id="x64_SQLite.Interop.dll" Name="SQLite.Interop.dll" Source="$(var.LanBackupAgent_TargetDir)x64\SQLite.Interop.dll" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  
+
+</Wix>

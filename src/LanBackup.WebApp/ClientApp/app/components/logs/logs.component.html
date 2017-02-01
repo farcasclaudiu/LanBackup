@@ -1,0 +1,70 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span>
+      Logs
+    </span>
+    <div class="pull-right mypointerlink">
+      <a (click)="doRefresh()" class="nounderline">
+        <i class="fa fa-refresh fa-fw" [ngClass]="{ 'fa-spin': isloading }" aria-hidden="true"></i>  Refresh
+      </a>
+    </div>
+  </div>
+
+
+  <div class="panel-body">
+
+
+    <div>
+
+      <div class="tabledesc">
+        Here are all agents and operations logs. <br />
+      </div>
+    </div>
+
+
+    <!--table with logs-->
+    <div class="table-responsive tableminim well">
+      <table class="table table-hover table-fixed table-condensed table-striped anyLoadingTable">
+        <thead>
+          <tr>
+            <th>DateTime</th>
+            <th>Computer IP</th>
+            <th style="width:35%">Description</th>
+            <th style="width:30%">Error</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let logItem of list.recs | paginate: { id: 'pagedList', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalPages }">
+            <td>{{logItem.dateTime | date: 'yyyy/MM/dd hh:mm:ss'}}</td>
+            <td>{{logItem.clientIP}}</td>
+            <td>{{logItem.description}}</td>
+            <td>{{logItem.logError}}</td>
+            <td>{{logItem.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="spinnercontainer row" [ngClass]="{ 'hidden': !isloading }">
+        <div class="myspinnerback">
+          <div class="myspinner">
+            <i class="fa fa-refresh fa-3x fa-fw fa-spin text-primary" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--pagination-->
+    <div class="panel-footer table-footer">
+      <div>
+        <pagination-controls (pageChange)="getPage($event)" id="pagedList" previousLabel="&laquo;" nextLabel="&raquo;"></pagination-controls>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+</div>
+

@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+  <div class="panel-heading">Manage Admin Users</div>
+
+
+  <div class="panel-body">
+
+
+    <div>
+      <div class="tabledesc">
+        Here an Admin user can grant or revoke "Admin" role for other users. <br />
+      </div>
+    </div>
+
+
+    <!--table with logs-->
+    <div class="table-responsive tableminim well">
+      <table class="table table-hover table-fixed table-condensed table-striped">
+        <thead>
+          <tr>
+            <th class="col-md-8">User name</th>
+            <th class="col-md-2">Is Admin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let userItem of list| paginate: { id: 'pagedList', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalPages }">
+            <td>{{userItem.email}}</td>
+            <td>
+              <div class="text-center switchAdjust">
+                <ngSwitch [(ngModel)]="userItem.isAdmin" (change)="toggleAdmin(userItem)" [disabled]="!isAllowedToChange(userItem)" size="small"></ngSwitch>
+                <!--<input type="checkbox" [ngModel]="userItem.isAdmin" (change)="toggleAdmin(userItem)" checked data-toggle="toggle" data-size="mini" data-onstyle="info" [disabled]="!isAllowedToChange(userItem)">-->
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <!--pagination-->
+    <div class="panel-footer table-footer">
+      <div class="has-text-centered">
+        <div class="spinner" [ngClass]="{ 'hidden': !loading }"></div>
+        <pagination-controls (pageChange)="getPage($event)" id="pagedList" previousLabel="&laquo;" nextLabel="&raquo;"></pagination-controls>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+</div>
+

@@ -1,0 +1,34 @@
+body {
+  padding-top: 50px;
+}
+.pagetemplate {
+  padding: 15px 50px 15px;
+  text-align: left;
+}
+
+
+.newbackup{
+  float: right;
+  clear: both;
+}
+
+.table-footer{
+  padding: 0px;
+}
+
+.pagination{
+  margin: 5px 0px 0px;
+}
+
+.tabledesc{
+  margin: 10px 10px 25PX;
+}
+
+
+
+@media (max-width: 767px) {
+    /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
+    .body-content {
+        padding-top: 50px;
+    }
+}
