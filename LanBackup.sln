@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LanBackupServices", "LanBac
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{18488CFA-6E13-4F3B-A5B4-74958B8BB813}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LanBackup.WebAppSpa.Tests", "test\LanBackup.WebAppSpa.Tests\LanBackup.WebAppSpa.Tests.xproj", "{F124A292-3711-4FD1-9C54-63D5CF613D37}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "LanBackup.WebApp.Tests", "test\LanBackup.WebAppSpa.Tests\LanBackup.WebApp.Tests.xproj", "{F124A292-3711-4FD1-9C54-63D5CF613D37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanBackupAgent", "src\LanBackupAgent\LanBackupAgent.csproj", "{CB7EE867-93E8-43E3-9EEE-9068AED1DE6C}"
 EndProject
