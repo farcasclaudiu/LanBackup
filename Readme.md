@@ -11,14 +11,14 @@ Used technologies: **.NET**, **ASP.NET Core** SPA with **Angular2**
 
 **Screenshots**
 
-![Dashboard by Admin](misc/docs/images/dashboard_admin_custom.png){:height="150px" width="200px"}
-![BackupConfigurations List](misc/docs/images/backupconfigurations_list_custom.png){:height="150px" width="200px"}
-![BackupConfiguration Edit](misc/docs/images/backupconfigurations_edit_custom.png){:height="150px" width="200px"}
-![Logs List](misc/docs/images/logs_list_custom.png){:height="150px" width="200px"}
-![Users List](misc/docs/images/users_list_custom.png){:height="150px" width="200px"}
-![Dashboard by Anonymous](misc/docs/images/dashboard_anonymous_custom.png){:height="150px" width="200px"}
-![Profile](misc/docs/images/profile_custom.png){:height="150px" width="200px"}
-![Login](misc/docs/images/login_custom.png){:height="150px" width="200px"}
+![Dashboard by Admin](misc/docs/images/dashboard_admin_custom.png)
+![BackupConfigurations List](misc/docs/images/backupconfigurations_list_custom.png)
+![BackupConfiguration Edit](misc/docs/images/backupconfigurations_edit_custom.png)
+![Logs List](misc/docs/images/logs_list_custom.png)
+![Users List](misc/docs/images/users_list_custom.png)
+![Dashboard by Anonymous](misc/docs/images/dashboard_anonymous_custom.png)
+![Profile](misc/docs/images/profile_custom.png)
+![Login](misc/docs/images/login_custom.png)
 
 
 
