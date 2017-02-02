@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LanBackup.WebApp.Models.Telemetry;
-using System.Net;
 
 namespace LanBackup.WebApp.Controllers
 {
@@ -146,6 +145,7 @@ namespace LanBackup.WebApp.Controllers
         if (user != null)
         {
           dtouser.Succeeded = false;
+          dtouser.IsLoggedIn = true;
           var result = await _userManager.ChangePasswordAsync(user, dtouser.Password, dtouser.NewPassword);
           if (result.Succeeded)
           {
@@ -162,7 +162,14 @@ namespace LanBackup.WebApp.Controllers
             return BadRequest(msg);
           }
         }
-        return StatusCode((int)HttpStatusCode.Unauthorized, "User not logged in");// Unauthorized();
+        else
+        {
+          this.telemetry.TrackEvent("ChangePasswordNotLoggedIn");
+          dtouser.Succeeded = false;
+          dtouser.IsLoggedIn = false;
+          dtouser.Errors = new IdentityError[] { new IdentityError() { Description = "User not logged in" } };
+          return Ok(dtouser);
+        }
       }
       catch (Exception ex)
       {

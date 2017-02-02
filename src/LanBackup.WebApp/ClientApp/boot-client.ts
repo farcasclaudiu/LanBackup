@@ -5,7 +5,6 @@ import { AppModule } from './app/app.module';
 
 import * as $ from 'jquery';
 import 'bootstrap';
-//import { AppInsightsModule, AppInsightsService } from 'ng2-appinsights';
 
 // Enable either Hot Module Reloading or production mode
 if (module['hot']) {
@@ -23,8 +22,3 @@ if (document.readyState === 'complete') {
 } else {
     document.addEventListener('DOMContentLoaded', bootApplication);
 }
-
-//var appIns: AppInsightsService = new AppInsightsService('');
-//appIns.Init({
-//  instrumentationKey: '9f667285-ff2c-4626-a8da-1db518593323' //TODO - MOVE INTO A CONFIG FILE THAT SHOULD NOT BE COMMITED
-//});

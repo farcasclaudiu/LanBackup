@@ -61,7 +61,11 @@ export class ProfileComponent implements OnInit {
         }
         else {
           //notify something not OK
-          this.showToast({ title: "Password change error", body: data.errors, type: ToastType.error });
+          if (!data.isLoggedIn) {
+            localStorage.removeItem("user");
+            this._router.navigate(['/']);//to default or last url
+          }
+          this.showToast({ title: "Password change error", body: data.errors.map(err => err.description), type: ToastType.error });
         }
       }, err => {
         this.log.error(err);

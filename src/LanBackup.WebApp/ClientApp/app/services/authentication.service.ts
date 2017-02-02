@@ -14,6 +14,7 @@ export class User {
   email: string;
   password: string;
   newpassword: string;
+  isLoggedIn: boolean;
   isAdmin: boolean;
   succeeded: boolean;
   isLockedOut: boolean;
