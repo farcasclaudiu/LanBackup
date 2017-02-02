@@ -1,0 +1,252 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <span>
+      Backup configurations
+    </span>
+    <div class="pull-right mypointerlink">
+      <a (click)="doRefresh()" class="nounderline">
+        <i class="fa fa-refresh fa-fw" [ngClass]="{ 'fa-spin': isloading }" aria-hidden="true"></i>  Refresh
+      </a>
+    </div>
+  </div>
+
+
+  <div class="panel-body">
+
+
+    <div>
+
+
+      <!-- modal trigger button -->
+      <button type="button" class="btn btn btn-success pull-right" data-toggle="modal" data-target="#myModal" *ngIf="isAdmin()" (click)="doNew()">
+        <i class="fa fa-plus" aria-hidden="true"></i>  New Configuration
+      </button>
+      <!-- Modal  EDIT -->
+      <div>
+        <app-modal #modalEdit id="modalEdit">
+          <div class="app-modal-header">
+            <button type="button" class="close" (click)="modalEdit.hide()">&times;</button>
+            <h4 class="modal-title">{{EditTitle}}</h4>
+          </div>
+          <div class="app-modal-body">
+            <form>
+
+
+              <fieldset>
+
+                <div class="container-fluid">
+
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="control-group">
+                        <!-- Client IP -->
+                        <label class="control-label" for="clientIP">Computer IP</label>
+                        <div class="controls">
+                          <input type="text" id="clientIP" name="clientIP" placeholder="computer ip address" class="input-xlarge validate" [(ngModel)]="editItem.clientIP">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="control-group">
+                        <!-- Src Folder -->
+                        <label class="control-label" for="srcFolder">Source Folder</label>
+                        <div class="controls">
+                          <input type="text" id="srcFolder" name="srcFolder" placeholder="source folder path" class="input-xlarge validate" [(ngModel)]="editItem.srcFolder">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6" class="control-group">
+                      <!-- Dest Folder -->
+                      <label class="control-label" for="destLanFolder">Destination Folder</label>
+                      <div class="controls">
+                        <input type="text" id="destLanFolder" name="destLanFolder" placeholder="destination lan folder path" class="input-xlarge validate" [(ngModel)]="editItem.destLanFolder">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="control-group">
+                        <!-- Src User -->
+                        <label class="control-label" for="srcUser">Source user</label>
+                        <div class="controls">
+                          <input type="text" id="srcUser" name="srcUser" placeholder="source user (john@computer)" class="input-xlarge validate" [(ngModel)]="editItem.srcUser">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6" class="control-group">
+                      <!-- Dest User -->
+                      <label class="control-label" for="destUser">Destination user</label>
+                      <div class="controls">
+                        <input type="text" id="destUser" name="destUser" placeholder="destination user (mary@server)" class="input-xlarge validate" [(ngModel)]="editItem.destUser">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="control-group">
+                        <!-- Src Pass -->
+                        <label class="control-label" for="srcPass">Source password</label>
+                        <div class="controls">
+                          <input type="password" id="srcPass" name="srcPass" placeholder="source pass (*****)" class="input-xlarge validate" [(ngModel)]="editItem.srcPass">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6" class="control-group">
+                      <!-- Dest User -->
+                      <label class="control-label" for="destPass">Destination password</label>
+                      <div class="controls">
+                        <input type="password" id="destPass" name="destPass" placeholder="destination pass (*****)" class="input-xlarge validate" [(ngModel)]="editItem.destPass">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 control-group">
+                      <!-- CRONTAB -->
+                      <label class="control-label" for="crontab">Crontab shedule expression</label>
+                      <div class="controls">
+                        <input type="text" id="crontab" name="crontab" placeholder="crontab expression" class="input-xlarge validate" [(ngModel)]="editItem.crontab">
+                      </div>
+                      <div class="controls">
+                        <p>to create expressions please lick <a href="http://www.cronmaker.com/" target="_blank">here</a></p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <h1></h1>
+                <span>{{errorMsg}}</span>
+                <h1></h1>
+              </fieldset>
+
+
+
+            </form>
+          </div>
+          <div class="app-modal-footer">
+            <button type="button" class="btn btn-default pull-left" (click)="modalEdit.hide()">Close</button>
+            <button type="button" class="btn btn-success" (click)="doSave()">Save</button>
+          </div>
+        </app-modal>
+      </div>
+
+      <!-- end Modal -->
+      <!-- Modal DELETE -->
+      <div>
+        <app-modal #modalDelete id="modalDelete">
+          <div class="app-modal-header">
+            <button type="button" class="close" (click)="modalDelete.hide()">&times;</button>
+            <h4 class="modal-title">Delete confirmation</h4>
+          </div>
+          <div class="app-modal-body">
+            <div>
+
+              <p>
+                Confim removal of {{editItem.clientIP}} from {{editItem.srcFolder}} to {{editItem.destLanFolder}}?
+              </p>
+
+            </div>
+          </div>
+          <div class="app-modal-footer">
+            <button type="button" class="btn btn-default pull-left" (click)="modalDelete.hide()">Close</button>
+            <button type="button" class="btn btn-danger" (click)="doDeleteConfirm()">Confirm</button>
+          </div>
+        </app-modal>
+      </div>
+      <!-- end Modal -->
+
+
+
+      <div class="tabledesc">
+        Here are all scheduled backups. <br />
+        Only "Admin" users can create, update, enable, disable and delete these. <br />
+        If you need to perform these actions and you can't, please contact your system administrator <a href="mailto:{{adminEmail}}">here</a>.
+      </div>
+    </div>
+
+
+
+    <div class="table-responsive tableminim well">
+      <table class="table table-hover table-fixed table-condensed table-striped anyLoadingTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Computer IP</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Details</th>
+            <th class="text-center">Logs</th>
+            <th class="text-center">Active</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr *ngFor="let backup of list.recs | paginate: { id: 'pagedList', itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalPages }">
+            <td>{{backup.id}}</td>
+            <td>{{backup.clientIP}}</td>
+            <td>{{backup.srcFolder}}</td>
+            <td>{{backup.destLanFolder}}</td>
+            <td>{{backup.crontab}}</td>
+            <td>
+              <div class="text-center">
+                <button type="button" class="btn btn-xs btn-default" (click)="seeLogs(backup)">
+                  <i class="fa fa-list-alt" aria-hidden="true"></i>
+                </button>
+              </div>
+            </td>
+            <td>
+              <div class="text-center switchAdjust">
+                <ngSwitch [(ngModel)]="backup.isActive" (change)="toggleActive(backup)" [disabled]="!isAdmin()" size="small" class=""></ngSwitch>
+                <!--<input type="checkbox" [ngModel]="backup.isActive" (change)="toggleActive(backup)" checked data-toggle="toggle" data-size="mini" data-onstyle="info" [disabled]="!isAdmin()">-->
+              </div>
+            </td>
+            <td>
+              <div class="text-center">
+                <button type="button" class="btn btn-default btn-xs" (click)="doEdit(backup)" [disabled]="!isAdmin()">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </div>
+            </td>
+            <td>
+              <div class="text-center">
+                <button type="button" class="btn btn-danger btn-xs" (click)="doDelete(backup)" [disabled]="!isAdmin()">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+
+
+
+
+
+
+        </tbody>
+      </table>
+      <div class="spinnercontainer row" [ngClass]="{ 'hidden': !isloading }">
+        <div class="myspinnerback">
+          <div class="myspinner">
+            <i class="fa fa-refresh fa-3x fa-fw fa-spin text-primary" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <!--pagination-->
+    <div class="panel-footer table-footer">
+      <div class="has-text-centered">
+        <pagination-controls (pageChange)="getPage($event)" id="pagedList" previousLabel="&laquo;" nextLabel="&raquo;"></pagination-controls>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
