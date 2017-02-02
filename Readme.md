@@ -66,8 +66,9 @@ Used technologies: **.NET**, **ASP.NET Core** SPA with **Angular2**
   - IIS Express (installed with VS2015)
   - MSSQL (version 2012+) installed on machine (can be the express/community/dev) (https://www.microsoft.com/en-us/sql-server/sql-server-editions-express)
 - **clone** this repo on your machine:
+
     ```
-    git clone <address of this git repo>
+    git clone https://github.com/farcasclaudiu/LanBackup.git
     ```
 - open solution in Visual Studio, all solution packages are available online and normally should **restore** by themself when opening the solution, wait for all packages to be restored automatically.
 - Let's **build**
@@ -75,6 +76,7 @@ Used technologies: **.NET**, **ASP.NET Core** SPA with **Angular2**
 - **RUN** the app (F5 or Ctrl+F5).
 - Two databases defined in the project config file will be created automatically at the first run of the project. One database is for AspNetIdentity, the second is to hold app data.
 - To configure Microsoft Azure **Application Insight** I recommend setting in project "LanBackup.WebApp" the ***user secret*** file with a structure like:
+
     ```
     {
       "clientSettings": {
