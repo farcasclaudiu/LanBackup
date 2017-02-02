@@ -6,5 +6,7 @@ namespace LanBackup.WebApp.Models.Telemetry
   {
     void TrackException(Exception ex);
     void TrackEvent(string v);
+
+    bool IsEnabled { get; set; }
   }
 }

@@ -71,3 +71,31 @@ body {
   top:45%; 
   position:relative;
 }
+
+
+
+.statusIcon{
+  width: 10px;
+  height: 10px;
+  border:1px solid #444;
+  margin-top: 3px;
+}
+/*idle*/
+.statusIcon_0 {
+  background-color: lightgray;
+}
+
+/*starting*/
+.statusIcon_1 {
+  background-color: lightgreen;
+}
+
+/*copy folders files*/
+.statusIcon_2, .statusIcon_3{
+  background-color: forestgreen;
+}
+
+/*error*/
+.statusIcon_4 {
+  background-color: firebrick;
+}

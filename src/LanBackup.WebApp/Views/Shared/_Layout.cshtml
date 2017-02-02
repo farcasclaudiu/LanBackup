@@ -22,7 +22,6 @@
     function setClientSetting(setting, val)
     {
       clientSettings[setting] = val;
-      clientSettings.admin_email = val;
     }
     setClientSetting('admin_email', '@ClientConfiguration.Instance.ClientSettings.AdminEmail');
     setClientSetting('instrumentationEnabled', '@ClientConfiguration.Instance.ClientSettings.InstrumentationEnabled');

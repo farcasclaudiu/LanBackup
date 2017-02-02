@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using LanBackup.WebApp.Data;
-using Microsoft.EntityFrameworkCore;
 using LanBackup.DataCore;
 using LanBackup.WebApp.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -21,11 +20,9 @@ using LanBackup.WebApp.Hubs;
 using LanBackup.WebApp.Middleware;
 using System.Linq;
 using AutoMapper;
-using LanBackup.ModelsCore;
-using LanBackup.WebApp.Models.DTO;
 using LanBackup.WebApp.Controllers;
-using Microsoft.AspNetCore.Http;
 using LanBackup.WebApp.Models.Telemetry;
+using Microsoft.ApplicationInsights.Extensibility;
 
 namespace LanBackup.WebApp
 {
@@ -33,6 +30,7 @@ namespace LanBackup.WebApp
   {
 
     public const string AuthenticationSchemeName = "MyAuthScheme";
+    private bool isApplicationInsightEnabled = false;
 
     public Startup(IHostingEnvironment env)
     {
@@ -52,6 +50,8 @@ namespace LanBackup.WebApp
       builder.AddEnvironmentVariables();
       Configuration = builder.Build();
 
+      this.isApplicationInsightEnabled = Configuration.GetSection("AppSettings").GetValue<bool>("InstrumentationEnabled");
+
     }
 
     public IConfigurationRoot Configuration { get; }
@@ -62,6 +62,7 @@ namespace LanBackup.WebApp
 
       //AppInsighttelemetry
       services.AddApplicationInsightsTelemetry(Configuration);
+      TelemetryConfiguration.Active.DisableTelemetry = !Configuration.GetSection("AppSettings").GetValue<bool>("InstrumentationEnabled");
 
       //conf telemetry logger 
       services.AddSingleton<ITelemetryLogger, TelemetryLogger>();
@@ -138,7 +139,8 @@ namespace LanBackup.WebApp
       loggerFactory.AddFile(Configuration["FileLogging:Path"]);
 
       // Add Application Insights monitoring to the request pipeline as a very first middleware.
-      app.UseApplicationInsightsRequestTelemetry();
+      if(this.isApplicationInsightEnabled)
+        app.UseApplicationInsightsRequestTelemetry();
 
       //conf CORS
       app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
@@ -162,7 +164,8 @@ namespace LanBackup.WebApp
         app.UseExceptionHandler("/Home/Error");
       }
       // Add Application Insights exceptions handling to the request pipeline. - after error page and any other error handling middleware:
-      app.UseApplicationInsightsExceptionTelemetry();
+      if(this.isApplicationInsightEnabled)
+        app.UseApplicationInsightsExceptionTelemetry();
 
 
       app.UseStaticFiles();
@@ -203,8 +206,6 @@ namespace LanBackup.WebApp
                   name: "spa-fallback",
                   defaults: new { controller = "Home", action = "Index" });
       });
-
-
 
 
 
