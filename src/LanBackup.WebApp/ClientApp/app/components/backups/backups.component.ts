@@ -227,7 +227,7 @@ export class BackupsComponent implements OnInit {
           this.currentPage = page
           this.totalPages = data.tp * this.pageSize;
           this.isloading = false;
-        }, 300);//TODO - remove - induced delay
+        }, 200);//TODO - remove - induced delay
 
       },
       err => {

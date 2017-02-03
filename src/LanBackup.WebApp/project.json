@@ -37,7 +37,8 @@
     "AutoMapper": "5.2.0",
     "AutoMapper.Extensions.Microsoft.DependencyInjection": "1.2.0",
     "Microsoft.ApplicationInsights.AspNetCore": "2.0.0",
-    "Microsoft.ApplicationInsights.JavaScript": "1.0.7-build00691"
+    "Microsoft.ApplicationInsights.JavaScript": "1.0.7-build00691",
+    "Microsoft.EntityFrameworkCore": "1.1.0"
   },
 
   "tools": {

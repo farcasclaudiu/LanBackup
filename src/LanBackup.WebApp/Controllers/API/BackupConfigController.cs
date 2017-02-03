@@ -10,6 +10,7 @@ using AutoMapper;
 using LanBackup.WebApp.Models.DTO;
 using AutoMapper.QueryableExtensions;
 using LanBackup.WebApp.Models.Telemetry;
+using Microsoft.EntityFrameworkCore;
 
 namespace LanBackup.WebApp.Controllers
 {
@@ -44,9 +45,8 @@ namespace LanBackup.WebApp.Controllers
     [ProducesResponseType(typeof(IEnumerable<BackupConfigurationDTO>), 200)]
     [ProducesResponseType(typeof(PaginatedList<BackupConfiguration, String, BackupConfigurationDTO>), 200)]
     public async Task<IActionResult> Get([FromHeader] string idx, [FromHeader] string siz)
-    //public IEnumerable<BackupConfiguration> Get()
     {
-      //return new DatabaseManager(_context).GetBackupConfigs();
+      _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
       if (!string.IsNullOrEmpty(idx) && !string.IsNullOrEmpty(siz))
       {
         return new OkObjectResult(
@@ -67,6 +67,7 @@ namespace LanBackup.WebApp.Controllers
     [ProducesResponseType(typeof(BackupConfigurationDTO), 404)]
     public IActionResult Get(string id)
     {
+      _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
       var res = new DatabaseManager(_context).GetBackupConfig(id);
       if (res == null)
       {
@@ -87,6 +88,7 @@ namespace LanBackup.WebApp.Controllers
     [ProducesResponseType(typeof(IEnumerable<BackupConfigurationDTO>), 404)]
     public IActionResult GetByCient(string clientid)
     {
+      _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
       var results = new DatabaseManager(_context).GetBackupConfigByClient(clientid);
       if (results == null || results.Count() == 0)
         return NotFound();

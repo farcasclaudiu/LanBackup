@@ -57,7 +57,7 @@ export class LogsComponent implements OnInit {
           this.currentPage = page
           this.totalPages = data.tp * this.pageSize;
           this.isloading = false;
-        }, 400);//induced delay
+        }, 200);//TODO - remove induced delay
       },
       err => this.log.error(err)
     );

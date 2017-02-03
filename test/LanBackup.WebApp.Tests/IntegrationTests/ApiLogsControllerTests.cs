@@ -63,12 +63,76 @@ namespace LanBackup.WebApp.Tests.IntegrationTests
 
 
 
+    #region EF InMemory DB
+
+    [Fact]
+    public async void WithEfInMemoryTestMethod()
+    {
+      using (var mctx = new EfInMemoryContext().GetContext())
+      {
+        var service = new LogsController(Mapper.Instance, mctx, _tele);
+        var res = Assert.IsType<OkObjectResult>(await service.Get(null, null));
+        var val1 = Assert.IsType<List<BackupLogDTO>>(res.Value);
+
+        Assert.Equal(5, val1.Count());
+      }
+    }
+
+    private class EfInMemoryContext : IDisposable
+    {
+      private BackupsContext _context;
+      private DbContextOptions<BackupsContext> options;
+
+      public EfInMemoryContext()
+      {
+        options = new DbContextOptionsBuilder<BackupsContext>()
+              .UseInMemoryDatabase()
+              .Options;
+
+        // Create the schema in the database
+        using (var context = new BackupsContext(options))
+        {
+          context.Database.EnsureCreated();
+        }
+
+        // Insert seed data into the database using one instance of the context
+        using (var context = new BackupsContext(options))
+        {
+          int id = 1;
+          context.Add(new BackupLog { ClientIP = "192.168.1.100", Description = $"Playing with some test data {Guid.NewGuid()}", Status = "OK", ID = id++ });
+          context.Add(new BackupLog { ClientIP = "192.168.1.100", Description = $"Playing with some test data {Guid.NewGuid()}", Status = "OK", ID = id++ });
+          context.Add(new BackupLog { ClientIP = "192.168.1.101", Description = $"Playing with some test data {Guid.NewGuid()}", Status = "OK", ID = id++ });
+          context.Add(new BackupLog { ClientIP = "192.168.1.102", Description = $"Playing with some test data {Guid.NewGuid()}", Status = "OK", ID = id++ });
+          context.Add(new BackupLog { ClientIP = "192.168.1.103", Description = $"Playing with some test data {Guid.NewGuid()}", Status = "OK", ID = id++ });
+          context.SaveChanges();
+        }
+        _context = new BackupsContext(options);
+      }
+
+      public void Dispose()
+      {
+        _context.Dispose();
+      }
+
+      internal BackupsContext GetContext()
+      {
+        return _context;
+      }
+    }
+
+
+    #endregion EF InMemory DB
+
+
+
+
+
     #region SqliteInMemory DB tests
 
     [Fact]
     public async void WithSqliteInmemoryTestMethod()
     {
-      using (var mctx = new GetSqliteMemoryContext().GetContext())
+      using (var mctx = new SqliteMemoryContext().GetContext())
       {
         var service = new LogsController(Mapper.Instance, mctx, _tele);
         var res = Assert.IsType<OkObjectResult>(await service.Get(null, null));
@@ -83,7 +147,7 @@ namespace LanBackup.WebApp.Tests.IntegrationTests
     public async void GetByIdWithSqliteInmemoryTestMethod()
     {
 
-      using (var mctx = new GetSqliteMemoryContext().GetContext())
+      using (var mctx = new SqliteMemoryContext().GetContext())
       {
         var recId = 1;
         var service = new LogsController(Mapper.Instance, mctx, _tele);
@@ -103,7 +167,7 @@ namespace LanBackup.WebApp.Tests.IntegrationTests
     public async void GetByClientIdWithSqliteInmemoryTestMethod()
     {
 
-      using (var mctx = new GetSqliteMemoryContext().GetContext())
+      using (var mctx = new SqliteMemoryContext().GetContext())
       {
         var clientId = "192.168.1.100";
         var service = new LogsController(Mapper.Instance, mctx, _tele);
@@ -119,13 +183,13 @@ namespace LanBackup.WebApp.Tests.IntegrationTests
 
 
 
-    private class GetSqliteMemoryContext : IDisposable
+    private class SqliteMemoryContext : IDisposable
     {
       private SqliteConnection connection;
       private BackupsContext _context;
       private DbContextOptions<BackupsContext> options;
 
-      public GetSqliteMemoryContext()
+      public SqliteMemoryContext()
       {
         connection = new SqliteConnection("DataSource=:memory:");
         connection.Open();
@@ -169,5 +233,8 @@ namespace LanBackup.WebApp.Tests.IntegrationTests
 
 
     #endregion
+
+
+
   }
 }

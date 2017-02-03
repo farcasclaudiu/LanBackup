@@ -21,7 +21,8 @@
     "FluentAssertions": "4.18.0",
     "LanBackup.WebApp": "1.0.0-*",
     "Moq": "4.6.38-alpha",
-    "System.Diagnostics.TraceSource": "4.0.0"
+    "System.Diagnostics.TraceSource": "4.0.0",
+    "Microsoft.EntityFrameworkCore.InMemory": "1.1.0"
   },
   "testRunner": "xunit",
   "frameworks": {

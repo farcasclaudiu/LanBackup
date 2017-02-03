@@ -10,6 +10,7 @@ using LanBackup.WebApp.Models.DTO;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using LanBackup.WebApp.Models.Telemetry;
+using Microsoft.EntityFrameworkCore;
 
 namespace LanBackup.WebApp.Controllers
 {
@@ -35,19 +36,6 @@ namespace LanBackup.WebApp.Controllers
     }
 
 
-    ///// <summary>
-    ///// retrieves all logs from DB
-    ///// </summary>
-    ///// <returns></returns>
-    //[AllowAnonymous]
-    //[HttpGet]
-    //[ProducesResponseType(typeof(IEnumerable<BackupLog>), 200)]
-    //public IActionResult Get()
-    //{
-    //  return new OkObjectResult(_context.Logs.ToList());
-    //  //return new  ObjectResult(_context.Logs.ToList());
-    //}
-
 
     /// <summary>
     /// retrieves paginated logs from DB
@@ -57,14 +45,11 @@ namespace LanBackup.WebApp.Controllers
     /// <returns></returns>
     [AllowAnonymous]
     [HttpGet]
-    //[HttpGet("{pageIndex}/{pageSize}")]
     [ProducesResponseType(typeof(IEnumerable<BackupLogDTO>), 200)]
     [ProducesResponseType(typeof(PaginatedList<BackupLog, DateTime, BackupLogDTO>), 200)]
     public async Task<IActionResult> Get([FromHeader] string idx, [FromHeader] string siz)
     {
-      //StringValues val1, val2;
-      //HttpContext.Request.Headers.TryGetValue("idx", out val1) &&
-      //HttpContext.Request.Headers.TryGetValue("siz", out val2)
+      _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
       if (!string.IsNullOrEmpty(idx) && !string.IsNullOrEmpty(siz))
       {
         return new OkObjectResult(
@@ -86,6 +71,7 @@ namespace LanBackup.WebApp.Controllers
     [ProducesResponseType(typeof(BackupLogDTO), 404)]
     public IActionResult Get(int id)
     {
+      _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
       var result = _context.Logs.SingleOrDefault(p => p.ID == id);
       if (result == null)
       {
@@ -107,6 +93,7 @@ namespace LanBackup.WebApp.Controllers
     [ProducesResponseType(typeof(IEnumerable<BackupLogDTO>), 404)]
     public IActionResult GetByCientID(string clientid)
     {
+      _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
       var results = _context.Logs.Where(p => p.ClientIP == clientid).OrderByDescending(o => o.DateTime);
       if (results == null || results.Count() == 0)
         return NotFound();
@@ -126,6 +113,7 @@ namespace LanBackup.WebApp.Controllers
     [ProducesResponseType(typeof(IEnumerable<BackupLogDTO>), 404)]
     public IActionResult GetByConfigurationID(string configurationid)
     {
+      _context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
       var results = _context.Logs.Where(p => p.ConfigurationID == configurationid).OrderByDescending(o => o.DateTime);
       if (results == null || results.Count() == 0)
         return NotFound();
@@ -141,7 +129,7 @@ namespace LanBackup.WebApp.Controllers
     /// </summary>
     /// <param name="log"></param>
     /// <returns></returns>
-    [AllowAnonymous]//[Authorize(Roles = "Admin")]
+    [AllowAnonymous]//TODO [Authorize(Roles = "Admin")]
     [HttpPost]
     [ProducesResponseType(typeof(int), 200)]
     [ProducesResponseType(typeof(int), 400)]

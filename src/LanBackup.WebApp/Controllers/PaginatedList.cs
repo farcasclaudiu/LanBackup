@@ -47,8 +47,8 @@ namespace LanBackup.WebApp.Controllers
       var count = await source.CountAsync();
       if (order != null)
       {
-        var items = source.OrderByDescending(order).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();// .ToListAsync();
-        var mappedItems = mapper.Map<List<T>, List<M>>(items);
+        var items = source.OrderByDescending(order).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToAsyncEnumerable();
+        var mappedItems = mapper.Map<List<T>, List<M>>(await items.ToList());
         return new PaginatedList<T, U, M>(mappedItems, count, pageIndex, pageSize);
       }
       else
